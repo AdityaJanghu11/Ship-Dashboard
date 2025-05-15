@@ -1,45 +1,49 @@
 import { useJobs } from "../../contexts/JobsContext";
 import { useAuth } from "../../contexts/AuthContext";
-import { useNotifications } from "../../contexts/NotificationsContext";
 
-const JobList = ({ shipId, jobs: overrideJobs }) => {
+const JobList = ({ shipId }) => {
   const { jobs, updateJob } = useJobs();
   const { user } = useAuth();
-  const { addNotification } = useNotifications();
 
-  const filtered = overrideJobs ?? (shipId ? jobs.filter(j => j.shipId === shipId) : jobs);
+  const filtered = shipId ? jobs.filter((j) => j.shipId === shipId) : jobs;
+
+  if (filtered.length === 0) {
+    return <p className="text-gray-600">No jobs to show.</p>;
+  }
 
   const handleStatusChange = (id, status) => {
     updateJob(id, { status });
-    addNotification(`Job marked as "${status}"`, "info");
   };
 
   return (
-    <div className="p-4 bg-white border rounded">
-      <ul className="space-y-4">
-        {filtered.map((job) => (
-          <li key={job.id} className="border p-3 rounded">
-            <div><strong>Type:</strong> {job.type}</div>
-            <div><strong>Priority:</strong> {job.priority}</div>
-            <div><strong>Status:</strong> {job.status}</div>
-            <div><strong>Engineer ID:</strong> {job.assignedEngineerId}</div>
-            <div><strong>Date:</strong> {job.scheduledDate}</div>
-
-            {user?.role === "Engineer" && (
+    <ul className="space-y-3">
+      {filtered.map((job) => (
+        <li
+          key={job.id}
+          className="border p-3 rounded bg-white shadow-sm flex justify-between items-start"
+        >
+          <div>
+            <div className="font-semibold text-blue-800">{job.type}</div>
+            <div className="text-sm text-gray-600">Component ID: {job.componentId}</div>
+            <div className="text-sm text-gray-600">Priority: {job.priority}</div>
+            <div className="text-sm text-gray-600">Engineer: {job.assignedEngineerId}</div>
+            <div className="text-sm text-gray-600">Scheduled: {job.scheduledDate}</div>
+            <div className="text-sm text-gray-600 mb-1">Status: {job.status}</div>
+            {user?.role === "Engineer" && job.status !== "Completed" && (
               <select
                 value={job.status}
                 onChange={(e) => handleStatusChange(job.id, e.target.value)}
-                className="mt-2 border rounded px-2 py-1"
+                className="select mt-1"
               >
                 <option>Open</option>
                 <option>In Progress</option>
                 <option>Completed</option>
               </select>
             )}
-          </li>
-        ))}
-      </ul>
-    </div>
+          </div>
+        </li>
+      ))}
+    </ul>
   );
 };
 

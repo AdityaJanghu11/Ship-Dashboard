@@ -25,42 +25,54 @@ const ComponentForm = ({ shipId }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-2 mb-4">
-      <input
-        name="name"
-        placeholder="Component Name"
-        onChange={handleChange}
-        value={form.name}
-        className="w-full border p-2 rounded"
-        required
-      />
-      <input
-        name="serialNumber"
-        placeholder="Serial Number"
-        onChange={handleChange}
-        value={form.serialNumber}
-        className="w-full border p-2 rounded"
-        required
-      />
-      <input
-        name="installDate"
-        type="date"
-        onChange={handleChange}
-        value={form.installDate}
-        className="w-full border p-2 rounded"
-        required
-      />
-      <input
-        name="lastMaintenanceDate"
-        type="date"
-        onChange={handleChange}
-        value={form.lastMaintenanceDate}
-        className="w-full border p-2 rounded"
-        required
-      />
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
-        Add Component
-      </button>
+    <form onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label className="label">Component Name</label>
+        <input
+          name="name"
+          value={form.name}
+          onChange={handleChange}
+          className="input"
+          required
+        />
+      </div>
+
+      <div className="form-group">
+        <label className="label">Serial Number</label>
+        <input
+          name="serialNumber"
+          value={form.serialNumber}
+          onChange={handleChange}
+          className="input"
+          required
+        />
+      </div>
+
+      <div className="form-group">
+        <label className="label">Install Date</label>
+        <input
+          name="installDate"
+          type="date"
+          value={form.installDate}
+          onChange={handleChange}
+          className="input"
+          required
+        />
+      </div>
+
+      <div className="form-group">
+        <label className="label">Last Maintenance Date</label>
+        <input
+          name="lastMaintenanceDate"
+          type="date"
+          value={form.lastMaintenanceDate}
+          onChange={handleChange}
+          className="input"
+          required
+        />
+      </div>
+
+      <button type="submit" className="btn btn-primary">Add Component</button>
     </form>
   );
 };

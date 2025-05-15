@@ -1,9 +1,56 @@
-/* src/styles/main.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Add global styles if needed */
-body {
-  @apply bg-gray-50 text-gray-900;
+/* Base light styles */
+html, body {
+  @apply h-full bg-gray-50 text-gray-900 font-sans antialiased;
 }
+
+#root {
+  @apply min-h-screen flex flex-col;
+}
+
+/* Dark mode overrides */
+.dark html, .dark body {
+  @apply bg-gray-900 text-gray-100;
+}
+
+/* Card background switch */
+.card {
+  @apply bg-white shadow-md rounded-lg p-4;
+}
+
+.dark .card {
+  @apply bg-gray-800 shadow-gray-700;
+}
+
+/* Buttons */
+.btn-primary {
+  @apply bg-blue-600 hover:bg-blue-700 text-white;
+}
+
+.dark .btn-primary {
+  @apply bg-blue-500 hover:bg-blue-600;
+}
+
+/* Input fields */
+.input,
+.select {
+  @apply w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-black;
+}
+
+.dark .input,
+.dark .select {
+  @apply bg-gray-700 border-gray-600 text-white;
+}
+
+/* Navbar */
+.navbar {
+  @apply bg-white shadow px-4 py-3 mb-4;
+}
+
+.dark .navbar {
+  @apply bg-gray-800 shadow-gray-700;
+}
+

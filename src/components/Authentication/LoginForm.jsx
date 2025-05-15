@@ -1,56 +1,56 @@
-// src/components/Authentication/LoginForm.jsx
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
+
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
 
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const res = login(form.email, form.password);
-    if (res.success) {
-      navigate("/");
+    const success = login(form.email, form.password);
+    if (success) {
+      setError("");
+      navigate("/"); // redirect to dashboard
     } else {
-      setError(res.message);
+      setError("Invalid email or password");
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {error && <p className="text-red-500 text-sm">{error}</p>}
-      <div>
-        <label className="block text-sm font-medium">Email</label>
+      {error && <p className="text-red-600">{error}</p>}
+
+      <div className="form-group">
+        <label className="label">Email</label>
         <input
           type="email"
           name="email"
+          className="input"
           value={form.email}
           onChange={handleChange}
           required
-          className="w-full border rounded px-3 py-2 mt-1"
         />
       </div>
-      <div>
-        <label className="block text-sm font-medium">Password</label>
+
+      <div className="form-group">
+        <label className="label">Password</label>
         <input
           type="password"
           name="password"
+          className="input"
           value={form.password}
           onChange={handleChange}
           required
-          className="w-full border rounded px-3 py-2 mt-1"
         />
       </div>
-      <button
-        type="submit"
-        className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-      >
+
+      <button type="submit" className="btn btn-primary w-full">
         Login
       </button>
     </form>

@@ -2,17 +2,15 @@ import { useState } from "react";
 import { useJobs } from "../../contexts/JobsContext";
 import { useComponents } from "../../contexts/ComponentsContext";
 import { useShips } from "../../contexts/ShipsContext";
-import { useNotifications } from "../../contexts/NotificationsContext";
 
 const JobForm = () => {
   const { addJob } = useJobs();
   const { components } = useComponents();
   const { ships } = useShips();
-  const { addNotification } = useNotifications();
 
   const [form, setForm] = useState({
-    componentId: "",
     shipId: "",
+    componentId: "",
     type: "",
     priority: "Medium",
     status: "Open",
@@ -26,10 +24,9 @@ const JobForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     addJob(form);
-    addNotification("Job created successfully", "success");
     setForm({
-      componentId: "",
       shipId: "",
+      componentId: "",
       type: "",
       priority: "Medium",
       status: "Open",
@@ -39,81 +36,50 @@ const JobForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3 max-w-lg mb-8">
-      <select
-        name="shipId"
-        value={form.shipId}
-        onChange={handleChange}
-        className="w-full border rounded px-2 py-2"
-        required
-      >
-        <option value="">Select Ship</option>
-        {ships.map((s) => (
-          <option key={s.id} value={s.id}>{s.name}</option>
-        ))}
-      </select>
+    <form onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label className="label">Ship</label>
+        <select name="shipId" value={form.shipId} onChange={handleChange} className="select">
+          <option value="">Select Ship</option>
+          {ships.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+        </select>
+      </div>
 
-      <select
-        name="componentId"
-        value={form.componentId}
-        onChange={handleChange}
-        className="w-full border rounded px-2 py-2"
-        required
-      >
-        <option value="">Select Component</option>
-        {components.map((c) => (
-          <option key={c.id} value={c.id}>
-            {c.name} ({c.serialNumber})
-          </option>
-        ))}
-      </select>
+      <div className="form-group">
+        <label className="label">Component</label>
+        <select name="componentId" value={form.componentId} onChange={handleChange} className="select">
+          <option value="">Select Component</option>
+          {components.map((c) => (
+            <option key={c.id} value={c.id}>{c.name} ({c.serialNumber})</option>
+          ))}
+        </select>
+      </div>
 
-      <input
-        type="text"
-        name="type"
-        placeholder="Job Type (e.g. Inspection)"
-        value={form.type}
-        onChange={handleChange}
-        className="w-full border px-2 py-2 rounded"
-        required
-      />
+      <div className="form-group">
+        <label className="label">Type</label>
+        <input type="text" name="type" value={form.type} onChange={handleChange} className="input" />
+      </div>
 
-      <select
-        name="priority"
-        value={form.priority}
-        onChange={handleChange}
-        className="w-full border px-2 py-2 rounded"
-      >
-        <option>High</option>
-        <option>Medium</option>
-        <option>Low</option>
-      </select>
+      <div className="form-group">
+        <label className="label">Priority</label>
+        <select name="priority" value={form.priority} onChange={handleChange} className="select">
+          <option>High</option>
+          <option>Medium</option>
+          <option>Low</option>
+        </select>
+      </div>
 
-      <input
-        type="text"
-        name="assignedEngineerId"
-        placeholder="Assigned Engineer ID"
-        value={form.assignedEngineerId}
-        onChange={handleChange}
-        className="w-full border px-2 py-2 rounded"
-        required
-      />
+      <div className="form-group">
+        <label className="label">Engineer ID</label>
+        <input type="text" name="assignedEngineerId" value={form.assignedEngineerId} onChange={handleChange} className="input" />
+      </div>
 
-      <input
-        type="date"
-        name="scheduledDate"
-        value={form.scheduledDate}
-        onChange={handleChange}
-        className="w-full border px-2 py-2 rounded"
-        required
-      />
+      <div className="form-group">
+        <label className="label">Scheduled Date</label>
+        <input type="date" name="scheduledDate" value={form.scheduledDate} onChange={handleChange} className="input" />
+      </div>
 
-      <button
-        type="submit"
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-      >
-        Create Job
-      </button>
+      <button type="submit" className="btn btn-primary">Create Job</button>
     </form>
   );
 };

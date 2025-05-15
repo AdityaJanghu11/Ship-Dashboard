@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useShips } from "../contexts/ShipsContext";
-import ComponentList from "../components/Components/ComponentList";
 import ComponentForm from "../components/Components/ComponentForm";
+import ComponentList from "../components/Components/ComponentList";
 import JobList from "../components/Jobs/JobList";
 
 const ShipDetailPage = () => {
@@ -9,25 +9,33 @@ const ShipDetailPage = () => {
   const { getShip } = useShips();
   const ship = getShip(id);
 
-  if (!ship) return <p className="p-4">Ship not found.</p>;
+  if (!ship) return <div className="container">Ship not found.</div>;
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Ship: {ship.name}</h1>
-      <div className="mb-6">
-        <p><strong>IMO:</strong> {ship.imo}</p>
-        <p><strong>Flag:</strong> {ship.flag}</p>
-        <p><strong>Status:</strong> {ship.status}</p>
+    <div className="container">
+      <h1 className="page-title">{ship.name}</h1>
+
+      <div className="grid md:grid-cols-2 gap-6 mb-6">
+        <div className="card">
+          <div className="card-header">General Info</div>
+          <p><strong>IMO:</strong> {ship.imo}</p>
+          <p><strong>Flag:</strong> {ship.flag}</p>
+          <p><strong>Status:</strong> {ship.status}</p>
+        </div>
+
+        <div className="card">
+          <div className="card-header">Add Component</div>
+          <ComponentForm shipId={id} />
+        </div>
       </div>
 
-      <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">Components</h2>
-        <ComponentForm shipId={id} />
+      <div className="card mb-6">
+        <div className="card-header">Ship Components</div>
         <ComponentList shipId={id} />
       </div>
 
-      <div>
-        <h2 className="text-xl font-semibold mb-2">Maintenance Jobs</h2>
+      <div className="card">
+        <div className="card-header">Maintenance Jobs</div>
         <JobList shipId={id} />
       </div>
     </div>

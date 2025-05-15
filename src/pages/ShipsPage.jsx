@@ -1,13 +1,20 @@
-import ShipList from '../components/Ships/ShipList';
-import ShipForm from '../components/Ships/ShipForm';
-;
+import ShipForm from "../components/Ships/ShipForm";
+import ShipList from "../components/Ships/ShipList";
 
 const ShipsPage = () => {
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Ships Management</h1>
-      <ShipForm />
-      <ShipList />
+    <div className="container">
+      <h1 className="page-title">Ships Management</h1>
+
+      <div className="card mb-6">
+        <div className="card-header">Add New Ship</div>
+        <ShipForm />
+      </div>
+
+      <div className="card">
+        <div className="card-header">All Ships</div>
+        <ShipList />
+      </div>
     </div>
   );
 };

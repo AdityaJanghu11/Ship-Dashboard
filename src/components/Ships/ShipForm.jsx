@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useShips } from "../../contexts/ShipsContext";
 
-
 const ShipForm = () => {
   const { addShip } = useShips();
   const [form, setForm] = useState({
     name: "",
     imo: "",
     flag: "",
-    status: "Active",
+    status: "Active"
   });
 
   const handleChange = (e) =>
@@ -21,49 +20,55 @@ const ShipForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 max-w-lg">
-      <input
-        type="text"
-        name="name"
-        placeholder="Ship Name"
-        value={form.name}
-        onChange={handleChange}
-        className="w-full border px-3 py-2 rounded"
-        required
-      />
-      <input
-        type="text"
-        name="imo"
-        placeholder="IMO Number"
-        value={form.imo}
-        onChange={handleChange}
-        className="w-full border px-3 py-2 rounded"
-        required
-      />
-      <input
-        type="text"
-        name="flag"
-        placeholder="Flag"
-        value={form.flag}
-        onChange={handleChange}
-        className="w-full border px-3 py-2 rounded"
-        required
-      />
-      <select
-        name="status"
-        value={form.status}
-        onChange={handleChange}
-        className="w-full border px-3 py-2 rounded"
-      >
-        <option value="Active">Active</option>
-        <option value="Under Maintenance">Under Maintenance</option>
-      </select>
-      <button
-        type="submit"
-        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-      >
-        Add Ship
-      </button>
+    <form onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label className="label">Ship Name</label>
+        <input
+          name="name"
+          value={form.name}
+          onChange={handleChange}
+          className="input"
+          required
+        />
+      </div>
+
+      <div className="form-group">
+        <label className="label">IMO Number</label>
+        <input
+          name="imo"
+          value={form.imo}
+          onChange={handleChange}
+          className="input"
+          required
+        />
+      </div>
+
+      <div className="form-group">
+        <label className="label">Flag</label>
+        <input
+          name="flag"
+          value={form.flag}
+          onChange={handleChange}
+          className="input"
+          required
+        />
+      </div>
+
+      <div className="form-group">
+        <label className="label">Status</label>
+        <select
+          name="status"
+          value={form.status}
+          onChange={handleChange}
+          className="select"
+        >
+          <option value="Active">Active</option>
+          <option value="In Dock">In Dock</option>
+          <option value="Retired">Retired</option>
+        </select>
+      </div>
+
+      <button type="submit" className="btn btn-primary">Add Ship</button>
     </form>
   );
 };
