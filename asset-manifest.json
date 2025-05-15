@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Ship-Dashboard/static/css/main.8a3ee34e.css",
+    "main.js": "/Ship-Dashboard/static/js/main.4efcd519.js",
+    "index.html": "/Ship-Dashboard/index.html",
+    "main.8a3ee34e.css.map": "/Ship-Dashboard/static/css/main.8a3ee34e.css.map",
+    "main.4efcd519.js.map": "/Ship-Dashboard/static/js/main.4efcd519.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8a3ee34e.css",
+    "static/js/main.4efcd519.js"
+  ]
+}
